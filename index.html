@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title>Mint Quiz</title>
         <script src="main.js" charset="utf-8"></script>
+        <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
         <link rel="stylesheet" href="styles.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,13 +19,13 @@
         <div class="staking">
             <h2 class="top p26">Staking</h2>
 
-            <span class="text p20">Your balance: <span class="number">0.00</span> QUIZ</span>
+            <span class="text p20">Your balance: <span id="_balance" class="number">0.00</span> QUIZ</span>
             <br>
-            <span class="text p20">Your stake: <span class="number">0.00</span> QUIZ</span>
+            <span class="text p20">Your stake: <span id="_stake" class="number">0.00</span> QUIZ</span>
             <br>
-            <span class="text p20">Total staked: <span class="number">0.00</span> QUIZ</span>
+            <span class="text p20">Total staked: <span id="_totalStake" class="number">0.00</span> QUIZ</span>
             <br>
-            <span class="text p20">Your winning chance: <span class="number">0.00</span>%</span>
+            <span class="text p20">Your winning chance: <span id="_chance" class="number">0.00</span>%</span>
             <br>
 
             <div class="form">
