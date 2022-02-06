@@ -1,11 +1,11 @@
 async function updateData () {
-    const balance = parseFloat(await token.methods.balanceOf(window.account).call()) / 1e18
-    const stake = parseFloat(await contract.methods.stakes(window.account).call()) / 1e18
+    window.balance = parseFloat(await token.methods.balanceOf(window.account).call()) / 1e18
+    window.stake = parseFloat(await contract.methods.stakes(window.account).call()) / 1e18
     const totalStake = parseFloat(await contract.methods.totalStake().call()) / 1e18
-    const chance = (stake / totalStake) * 100
+    const chance = (window.stake / totalStake) * 100
 
-    document.getElementById('_balance').innerText = balance.toFixed(2)
-    document.getElementById('_stake').innerText = stake.toFixed(2)
+    document.getElementById('_balance').innerText = window.balance.toFixed(2)
+    document.getElementById('_stake').innerText = window.stake.toFixed(2)
     document.getElementById('_totalStake').innerText = totalStake.toFixed(2)
     document.getElementById('_chance').innerText = chance.toFixed(2)
 
