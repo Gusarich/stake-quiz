@@ -42,11 +42,14 @@ function stake () {
     let amount = parseFloat(document.getElementsByName('amount')[0].value)
     if (amount > 0 && amount <= window.balance && amount <= window.allowance) {
         amount = web3.utils.toWei(amount.toFixed(18), 'ether')
+        document.getElementsByClassName('loader')[0].style.display = ''
         window.contract.methods.stake(amount).send({ from: ethereum.selectedAddress }).then((res) => {
             console.log(res)
             updateData()
         }).catch((e) => {
             console.log('error')
+        }).finally(() => {
+            document.getElementsByClassName('loader')[0].style.display = 'none'
         })
     }
 }
@@ -55,22 +58,28 @@ function unstake () {
     let amount = parseFloat(document.getElementsByName('amount')[0].value)
     if (amount > 0 && amount <= window.stake) {
         amount = web3.utils.toWei(amount.toFixed(18), 'ether')
+        document.getElementsByClassName('loader')[0].style.display = ''
         window.contract.methods.unstake(amount).send({ from: ethereum.selectedAddress }).then((res) => {
             console.log(res)
             updateData()
         }).catch((e) => {
             console.log('error')
+        }).finally(() => {
+            document.getElementsByClassName('loader')[0].style.display = 'none'
         })
     }
 }
 
 function approve () {
     amount = '115792089237316195423570985008687907853269984665640564039457584007913129639935'
+    document.getElementsByClassName('loader')[0].style.display = ''
     window.token.methods.approve('0x91BaE0FDaa34022Ccf2069bC00bFAe85f2Fd1220', amount).send({ from: ethereum.selectedAddress }).then((res) => {
         console.log(res)
         updateData()
     }).catch((e) => {
         console.log('error')
+    }).finally(() => {
+        document.getElementsByClassName('loader')[0].style.display = 'none'
     })
 }
 
