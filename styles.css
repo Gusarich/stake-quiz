@@ -1,6 +1,7 @@
 body {
     background-color: #354BC3;
     font-family: 'Ubuntu', sans-serif;
+    cursor: default;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -17,13 +18,14 @@ input[type=number] {
 
 .metamask {
     margin: auto;
-    width: 130px;
+    width: 150px;
     border: 2px solid #0F2288;
     border-radius: 10px;
     padding: 10px;
     text-align: center;
     background-color: #FF992A;
     font-size: 20px;
+    cursor: pointer;
 }
 
 .staking {
@@ -61,6 +63,7 @@ input[type=number] {
     background-color: #FFE42A;
     border-radius: 5px;
     font-size: 26px;
+    cursor: pointer;
 }
 
 input {
@@ -79,4 +82,9 @@ input:focus {
 
 .text {
     font-size: 20px;
+}
+
+.signout {
+    visibility: hidden;
+    margin-left: 15px;
 }
