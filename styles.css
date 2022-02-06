@@ -90,6 +90,10 @@ input:focus {
     margin-left: 15px;
 }
 
+#approve {
+    width: 235px;
+}
+
 
 @media screen and (orientation: portrait) {
     .p20 {
@@ -131,5 +135,9 @@ input:focus {
         height: 45px;
         line-height: 45px;
         font-size: 30px;
+    }
+
+    #approve {
+        width: 530px;
     }
 }

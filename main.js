@@ -1,19 +1,32 @@
 async function updateData () {
-    window.balance = parseFloat(await token.methods.balanceOf(ethereum.selectedAddress).call()) / 1e18
-    window.stake = parseFloat(await contract.methods.stakes(ethereum.selectedAddress).call()) / 1e18
     const totalStake = parseFloat(await contract.methods.totalStake().call()) / 1e18
-    const chance = (window.stake / totalStake) * 100
-    window.allowance = parseFloat(await token.methods.allowance(ethereum.selectedAddress, '0x91BaE0FDaa34022Ccf2069bC00bFAe85f2Fd1220').call()) / 1e18
-
-    document.getElementById('_balance').innerText = window.balance.toFixed(2)
-    document.getElementById('_stake').innerText = window.stake.toFixed(2)
-    document.getElementById('_totalStake').innerText = totalStake.toFixed(2)
-    document.getElementById('_chance').innerText = chance.toFixed(2)
 
     if (ethereum.selectedAddress) {
+        window.balance = parseFloat(await token.methods.balanceOf(ethereum.selectedAddress).call()) / 1e18
+        window.stake = parseFloat(await contract.methods.stakes(ethereum.selectedAddress).call()) / 1e18
+        window.allowance = parseFloat(await token.methods.allowance(ethereum.selectedAddress, '0x91BaE0FDaa34022Ccf2069bC00bFAe85f2Fd1220').call()) / 1e18
+        const chance = (window.stake / totalStake) * 100
+
+        if (window.allowance < 1000000) {
+            // need to approve first
+            document.getElementById('stake').style.display = 'none'
+            document.getElementById('unstake').style.display = 'none'
+            document.getElementById('approve').style.display = ''
+        }
+        else {
+            document.getElementById('stake').style.display = ''
+            document.getElementById('unstake').style.display = ''
+            document.getElementById('approve').style.display = 'none'
+        }
+
         document.getElementsByClassName('metamask-text')[0].innerText = ethereum.selectedAddress.substring(0, 4) + '...' + ethereum.selectedAddress.slice(-4)
         document.getElementsByClassName('signout')[0].style.display = ''
+        document.getElementById('_balance').innerText = window.balance.toFixed(2)
+        document.getElementById('_stake').innerText = window.stake.toFixed(2)
+        document.getElementById('_chance').innerText = chance.toFixed(2)
     }
+
+    document.getElementById('_totalStake').innerText = totalStake.toFixed(2)
 }
 
 async function ethEnabled () {
@@ -27,10 +40,11 @@ async function ethEnabled () {
 
 function stake () {
     let amount = parseFloat(document.getElementsByName('amount')[0].value)
-    if (amount <= window.balance) {
+    if (amount <= window.balance && amount <= window.allowance) {
         amount = web3.utils.toWei(amount.toFixed(18), 'ether')
         window.contract.methods.stake(amount).send({ from: ethereum.selectedAddress }).then((res) => {
             console.log(res)
+            updateData()
         }).catch((e) => {
             console.log('error')
         })
@@ -41,9 +55,20 @@ function unstake () {
 
 }
 
+function approve () {
+    amount = '115792089237316195423570985008687907853269984665640564039457584007913129639935'
+    window.token.methods.approve('0x91BaE0FDaa34022Ccf2069bC00bFAe85f2Fd1220', amount).send({ from: ethereum.selectedAddress }).then((res) => {
+        console.log(res)
+        updateData()
+    }).catch((e) => {
+        console.log('error')
+    })
+}
+
 window.addEventListener('load', async function () {
     document.getElementById('stake').onclick = stake
     document.getElementById('unstake').onclick = unstake
+    document.getElementById('approve').onclick = approve
 
     if (await ethEnabled()) {
         window.contract = new web3.eth.Contract(
