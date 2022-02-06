@@ -4,6 +4,14 @@ body {
     cursor: default;
 }
 
+.p20 {
+    font-size: 20px;
+}
+
+.p26 {
+    font-size: 26px;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -24,7 +32,6 @@ input[type=number] {
     padding: 10px;
     text-align: center;
     background-color: #FF992A;
-    font-size: 20px;
     cursor: pointer;
 }
 
@@ -43,12 +50,8 @@ input[type=number] {
     text-align: center;
 }
 
-.amount {
-    font-size: 26px;
-}
-
 .form {
-    margin-top: 40px;
+    margin-top: 35px;
 }
 
 .form * {
@@ -62,7 +65,6 @@ input[type=number] {
     display: inline-block;
     background-color: #FFE42A;
     border-radius: 5px;
-    font-size: 26px;
     cursor: pointer;
 }
 
@@ -80,10 +82,46 @@ input:focus {
     outline: none!important;
 }
 
-.text {
-    font-size: 20px;
-}
-
 .signout {
     margin-left: 15px;
+}
+
+
+@media screen and (orientation: portrait) {
+    .p20 {
+        font-size: 40px;
+    }
+
+    .p26 {
+        font-size: 52px;
+    }
+
+    .metamask {
+        width: 300px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+    .staking {
+        width: 80%;
+        height: 730px;
+    }
+
+    .button {
+        width: 240px;
+        height: 90px;
+        line-height: 90px;
+        margin: 25px;
+    }
+
+    .form {
+        margin-top: 100px;
+    }
+
+    input {
+        width: 510px;
+        height: 45px;
+        line-height: 45px;
+        font-size: 30px;
+    }
 }
