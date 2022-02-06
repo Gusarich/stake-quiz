@@ -285,10 +285,6 @@ input:focus {
 }
 
 @media screen and (orientation: portrait) and (min-width: 530px) {
-    body {
-        background-color: red;
-    }
-
     .p20 {
         font-size: 40px;
     }
