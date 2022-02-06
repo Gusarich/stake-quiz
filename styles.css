@@ -18,7 +18,7 @@ input[type=number] {
 
 .metamask {
     margin: auto;
-    width: 150px;
+    width: 180px;
     border: 2px solid #0F2288;
     border-radius: 10px;
     padding: 10px;
@@ -85,6 +85,5 @@ input:focus {
 }
 
 .signout {
-    visibility: hidden;
     margin-left: 15px;
 }
