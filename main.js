@@ -3,10 +3,12 @@ async function updateData () {
 
     document.getElementById('_totalStake').innerText = totalStake.toFixed(2)
 
-    if (ethereum.selectedAddress) {
-        window.balance = parseFloat(await token.methods.balanceOf(ethereum.selectedAddress).call()) / 1e18
-        window.stake = parseFloat(await contract.methods.stakes(ethereum.selectedAddress).call()) / 1e18
-        window.allowance = parseFloat(await token.methods.allowance(ethereum.selectedAddress, '0x81b37cB1a924Da99Df5Cd5664e668985bfDb7EDC').call()) / 1e18
+    const address = (await window.ethereum.request({ method: 'eth_requestAccounts' }))[0]
+
+    if (address) {
+        window.balance = parseFloat(await token.methods.balanceOf(address).call()) / 1e18
+        window.stake = parseFloat(await contract.methods.stakes(address).call()) / 1e18
+        window.allowance = parseFloat(await token.methods.allowance(address, '0x81b37cB1a924Da99Df5Cd5664e668985bfDb7EDC').call()) / 1e18
         const chance = (window.stake / totalStake) * 100
 
         if (window.allowance < 1000000) {
@@ -20,7 +22,7 @@ async function updateData () {
             document.getElementById('approve').style.display = 'none'
         }
 
-        document.getElementsByClassName('metamask-text')[0].innerText = ethereum.selectedAddress.substring(0, 4) + '...' + ethereum.selectedAddress.slice(-4)
+        document.getElementsByClassName('metamask-text')[0].innerText = address.substring(0, 4) + '...' + address.slice(-4)
         document.getElementsByClassName('signout')[0].style.display = ''
         document.getElementById('_balance').innerText = window.balance.toFixed(2)
         document.getElementById('_stake').innerText = window.stake.toFixed(2)
@@ -40,12 +42,13 @@ async function ethEnabled () {
     return false
 }
 
-function stake () {
+async function stake () {
+    const address = (await window.ethereum.request({ method: 'eth_requestAccounts' }))[0]
     let amount = parseFloat(document.getElementsByName('amount')[0].value)
     if (amount > 0 && amount <= window.balance && amount <= window.allowance) {
         amount = web3.utils.toWei(amount.toFixed(18), 'ether')
         document.getElementsByClassName('loader')[0].style.display = ''
-        window.contract.methods.stake(amount).send({ from: ethereum.selectedAddress }).then((res) => {
+        window.contract.methods.stake(amount).send({ from: address }).then((res) => {
             console.log(res)
             updateData()
         }).catch((e) => {
@@ -56,12 +59,13 @@ function stake () {
     }
 }
 
-function unstake () {
+async function unstake () {
+    const address = (await window.ethereum.request({ method: 'eth_requestAccounts' }))[0]
     let amount = parseFloat(document.getElementsByName('amount')[0].value)
     if (amount > 0 && amount <= window.stake) {
         amount = web3.utils.toWei(amount.toFixed(18), 'ether')
         document.getElementsByClassName('loader')[0].style.display = ''
-        window.contract.methods.unstake(amount).send({ from: ethereum.selectedAddress }).then((res) => {
+        window.contract.methods.unstake(amount).send({ from: address }).then((res) => {
             console.log(res)
             updateData()
         }).catch((e) => {
@@ -72,10 +76,11 @@ function unstake () {
     }
 }
 
-function approve () {
+async function approve () {
+    const address = (await window.ethereum.request({ method: 'eth_requestAccounts' }))[0]
     amount = '115792089237316195423570985008687907853269984665640564039457584007913129639935'
     document.getElementsByClassName('loader')[0].style.display = ''
-    window.token.methods.approve('0x81b37cB1a924Da99Df5Cd5664e668985bfDb7EDC', amount).send({ from: ethereum.selectedAddress }).then((res) => {
+    window.token.methods.approve('0x81b37cB1a924Da99Df5Cd5664e668985bfDb7EDC', amount).send({ from: address }).then((res) => {
         console.log(res)
         updateData()
     }).catch((e) => {
@@ -87,6 +92,7 @@ function approve () {
 
 async function login () {
     const enabled = await ethEnabled()
+
     window.contract = new web3.eth.Contract(
         [{"inputs":[{"internalType":"contract IERC20","name":"token","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"winner","type":"address"}],"name":"Draw","type":"event"},{"inputs":[],"name":"draw","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"stake","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"stakes","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalStake","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"unstake","outputs":[],"stateMutability":"nonpayable","type":"function"}],
         '0x81b37cB1a924Da99Df5Cd5664e668985bfDb7EDC')
