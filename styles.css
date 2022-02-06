@@ -1,6 +1,4 @@
 html, body {
-    margin: 0;
-    height: 100%;
     overflow: hidden
 }
 
@@ -210,6 +208,10 @@ input:focus {
         font-size: 26px;
     }
 
+    .metamask {
+        width: 160px;
+    }
+
     .staking {
         height: 410px;
     }
@@ -228,6 +230,10 @@ input:focus {
 
     .p26 {
         font-size: 23.4px;
+    }
+
+    .metamask {
+        width: 140px;
     }
 
     .staking {
@@ -251,6 +257,12 @@ input:focus {
         font-size: 20.8px;
     }
 
+    .metamask {
+        width: 130px;
+        height: 25px;
+        line-height: 25px;
+    }
+
     .staking {
         height: 350px;
     }
@@ -270,6 +282,12 @@ input:focus {
 
     .p26 {
         font-size: 18.2px;
+    }
+
+    .metamask {
+        width: 120px;
+        height: 20px;
+        line-height: 20px;
     }
 
     .staking {
