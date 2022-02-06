@@ -1,0 +1,82 @@
+body {
+    background-color: #354BC3;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.metamask {
+    margin: auto;
+    width: 130px;
+    border: 2px solid #0F2288;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    background-color: #FF992A;
+    font-size: 20px;
+}
+
+.staking {
+    width: 400px;
+    height: 340px;
+    border: 2px solid #0F2288;
+    border-radius: 10px;
+    background-color: #5467CE;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+}
+
+.amount {
+    font-size: 26px;
+}
+
+.form {
+    margin-top: 40px;
+}
+
+.form * {
+    margin: 5px;
+}
+
+.button {
+    width: 110px;
+    height: 40px;
+    line-height: 40px;
+    display: inline-block;
+    background-color: #FFE42A;
+    border-radius: 5px;
+    font-size: 26px;
+}
+
+input {
+    border: 0;
+    outline: 0;
+    border-radius: 5px;
+    background-color: #0F2288;
+    color: #7B8ADD;
+    width: 215px;
+    padding: 10px;
+}
+
+input:focus {
+    outline: none!important;
+}
+
+.text {
+    font-size: 20px;
+}

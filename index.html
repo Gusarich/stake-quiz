@@ -1,1 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Mint Quiz</title>
+        <script src="main.js" charset="utf-8"></script>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="metamask">
+            Not connected!
+        </div>
+        <div class="staking">
+            <h2>Staking</h2>
 
+            <span class="text">Your balance: <span class="number">0.00</span> QUIZ</span>
+            <br>
+            <span class="text">Your stake: <span class="number">0.00</span> QUIZ</span>
+            <br>
+            <span class="text">Total staked: <span class="number">0.00</span> QUIZ</span>
+            <br>
+            <span class="text">Your winning chance: <span class="number">0.00</span>%</span>
+            <br>
+
+            <div class="form">
+                <span class="amount">Amount</span>
+                <br>
+                <input type="number" name="amount" placeholder="0.00" onchange="fixInput">
+                <br>
+                <div class="button">
+                    Stake
+                </div>
+                <div class="button">
+                    Unstake
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
