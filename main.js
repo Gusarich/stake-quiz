@@ -40,7 +40,7 @@ async function ethEnabled () {
 
 function stake () {
     let amount = parseFloat(document.getElementsByName('amount')[0].value)
-    if (amount <= window.balance && amount <= window.allowance) {
+    if (amount > 0 && amount <= window.balance && amount <= window.allowance) {
         amount = web3.utils.toWei(amount.toFixed(18), 'ether')
         window.contract.methods.stake(amount).send({ from: ethereum.selectedAddress }).then((res) => {
             console.log(res)
@@ -52,7 +52,16 @@ function stake () {
 }
 
 function unstake () {
-
+    let amount = parseFloat(document.getElementsByName('amount')[0].value)
+    if (amount > 0 && amount <= window.stake) {
+        amount = web3.utils.toWei(amount.toFixed(18), 'ether')
+        window.contract.methods.unstake(amount).send({ from: ethereum.selectedAddress }).then((res) => {
+            console.log(res)
+            updateData()
+        }).catch((e) => {
+            console.log('error')
+        })
+    }
 }
 
 function approve () {
